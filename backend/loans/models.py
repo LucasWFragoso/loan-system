@@ -20,7 +20,7 @@ class Installment(models.Model):
 
 class TabelaTaxas(models.Model):
     numberInstallments = models.PositiveIntegerField(default=1)
-    interestRates = models.PositiveIntegerField(default=1)
+    interestRates = models.FloatField(default=0)
 
 
 class SolicitacaoEmprestimo(models.Model):
