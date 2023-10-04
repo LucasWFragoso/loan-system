@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView, Response
+from rest_framework import generics
 from .models import Cliente, TabelaTaxas, SolicitacaoEmprestimo, Installment
-from .serializers import InstallmentSerializer
+from .serializers import InstallmentSerializer, ClienteSerializer
 
 
 class InstallmentAPIView(APIView):
@@ -50,3 +51,23 @@ class InstallmentAPIView(APIView):
             return Response(serializer.data, status=200)
         else:
             return Response(serializer.errors, status=500)
+
+
+class ClienteAPIView(generics.ListCreateAPIView):
+    queryset = Cliente.objects.all()
+    serializer_class = ClienteSerializer
+
+
+class ClienteSearchAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        cpf = request.query_params.get("cpf")
+        if not cpf:
+            return Response({"error": "CPF is required"}, status=400)
+
+        try:
+            cliente = Cliente.objects.get(cpf=cpf)
+        except Cliente.DoesNotExist:
+            return Response({"error": "Cliente not found"}, status=404)
+
+        serializer = ClienteSerializer(cliente)
+        return Response(serializer.data, status=200)
