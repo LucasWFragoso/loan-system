@@ -25,14 +25,9 @@ class TabelaTaxas(models.Model):
 
 
 class SolicitacaoEmprestimo(models.Model):
+    card_number = models.CharField(max_length=16, default="")
+    card_name = models.CharField(max_length=255, default="")
+    valid_date = models.CharField(max_length=5, default="00/00")
+    card_cvc = models.CharField(max_length=3, default="")
     client = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    installment_interest = models.FloatField()
-    installment_interest_value = models.FloatField()
-    comission = models.FloatField()
-    comission_value = models.FloatField()
-    installment_value = models.FloatField()
-    card_number = models.CharField(max_length=16)
-    desired_value = models.FloatField()
-    total_loan = models.FloatField()
     installment = models.ForeignKey(Installment, on_delete=models.CASCADE)
-    rate_table = models.ForeignKey(TabelaTaxas, on_delete=models.CASCADE)

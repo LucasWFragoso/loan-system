@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Installment, Cliente, TabelaTaxas
+from .models import Installment, Cliente, TabelaTaxas, SolicitacaoEmprestimo
 
 
 class InstallmentSerializer(serializers.ModelSerializer):
@@ -28,6 +28,7 @@ class InstallmentSerializer(serializers.ModelSerializer):
 
 
 class ClienteSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=255)
     phone = serializers.CharField(max_length=15)
     cpf = serializers.CharField(max_length=11)
@@ -37,3 +38,16 @@ class ClienteSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return Cliente.objects.create(**validated_data)
+
+
+class SolicitacaoEmprestimoSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    card_number = serializers.CharField(max_length=16, default="")
+    card_name = serializers.CharField(max_length=255, default="")
+    valid_date = serializers.CharField(max_length=5, default="00/00")
+    card_cvc = serializers.CharField(max_length=3, default="")
+    client = ClienteSerializer()
+    installment = InstallmentSerializer()
+
+    def create(self, validated_data):
+        return SolicitacaoEmprestimo.objects.create(**validated_data)

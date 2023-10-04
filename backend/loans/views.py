@@ -2,7 +2,11 @@ from django.shortcuts import render
 from rest_framework.views import APIView, Response
 from rest_framework import generics
 from .models import Cliente, TabelaTaxas, SolicitacaoEmprestimo, Installment
-from .serializers import InstallmentSerializer, ClienteSerializer
+from .serializers import (
+    InstallmentSerializer,
+    ClienteSerializer,
+    SolicitacaoEmprestimoSerializer,
+)
 
 
 class InstallmentAPIView(APIView):
@@ -71,4 +75,55 @@ class ClienteSearchAPIView(APIView):
             return Response({"error": "Cliente not found"}, status=404)
 
         serializer = ClienteSerializer(cliente)
+        return Response(serializer.data, status=200)
+
+
+class SolicitacaoEmprestimoAPIView(APIView):
+    def post(self, request, *args, **kwargs):
+        card_number = request.data.get("card_number")
+        card_name = request.data.get("card_name")
+        valid_date = request.data.get("valid_date")
+        card_cvc = request.data.get("card_cvc")
+        client_id = request.data.get("client_id")
+        installment_id = request.data.get("installment_id")
+
+        if not card_number:
+            return Response({"error": "Card number is required"}, status=400)
+
+        if not card_name:
+            return Response({"error": "Card name is required"}, status=400)
+
+        if not valid_date:
+            return Response({"error": "Valid date is required"}, status=400)
+
+        if not card_cvc:
+            return Response({"error": "Card CVC is required"}, status=400)
+
+        if not client_id:
+            return Response({"error": "Client ID is required"}, status=400)
+
+        if not installment_id:
+            return Response({"error": "Installment ID is required"}, status=400)
+
+        try:
+            cliente = Cliente.objects.get(id=client_id)
+            print(cliente)
+        except Cliente.DoesNotExist:
+            return Response({"error": "Cliente not found"}, status=404)
+
+        try:
+            installment = Installment.objects.get(id=installment_id)
+        except Installment.DoesNotExist:
+            return Response({"error": "Installment not found"}, status=404)
+
+        solicitacao_emprestimo = SolicitacaoEmprestimo.objects.create(
+            card_number=card_number,
+            card_name=card_name,
+            valid_date=valid_date,
+            card_cvc=card_cvc,
+            client=cliente,
+            installment=installment,
+        )
+
+        serializer = SolicitacaoEmprestimoSerializer(solicitacao_emprestimo)
         return Response(serializer.data, status=200)
