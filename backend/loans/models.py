@@ -16,6 +16,7 @@ class Installment(models.Model):
     installment_value = models.FloatField()
     full_value = models.FloatField()
     comission = models.FloatField()
+    tabelaTaxas = models.ForeignKey("TabelaTaxas", on_delete=models.CASCADE, default=1)
 
 
 class TabelaTaxas(models.Model):

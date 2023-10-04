@@ -40,6 +40,7 @@ class InstallmentAPIView(APIView):
                 "installment_value": installment_value,
                 "full_value": full_value,
                 "comission": comission,
+                "tabelaTaxas": taxa.id,
             }
 
             installments_data.append(installment_data)
