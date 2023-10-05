@@ -1,10 +1,14 @@
 import { LoanValueForm } from '@/components/forms/loanValueForm';
 import Header from '@/components/header';
 import SimulacaotaxasIcon from '@/components/simulacaoTaxasTitle';
+import Table from '@/components/table';
+import { useLoan } from '@/contexts/loanContext';
 
 
 
 export default function Home() {
+  const { installments } = useLoan()
+
   return (
     <>
       <Header />
@@ -16,6 +20,7 @@ export default function Home() {
             <LoanValueForm/>
           </div>
         </div>
+        {installments && <Table data={installments}/>}
       </div>
     </>
   )
