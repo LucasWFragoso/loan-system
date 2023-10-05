@@ -24,6 +24,7 @@ module.exports = {
       },
       font: {
         1: '#777777',
+        2: '#ffffff',
       }
     },
     fontSize: {
