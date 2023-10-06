@@ -14,6 +14,7 @@ from django.core.management.utils import get_random_secret_key
 import os
 import dj_database_url
 import dotenv
+from pathlib import Path
 
 dotenv.load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
