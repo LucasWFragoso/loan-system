@@ -11,6 +11,7 @@ from .serializers import (
 
 class InstallmentAPIView(APIView):
     queryset = Installment.objects.all()
+    serializer_class = InstallmentSerializer
 
     def post(self, request, *args, **kwargs):
         value = request.data.get("value")
@@ -64,6 +65,8 @@ class ClienteAPIView(generics.ListCreateAPIView):
 
 
 class ClienteSearchAPIView(APIView):
+    serializer_class = ClienteSerializer
+
     def get(self, request, *args, **kwargs):
         cpf = request.query_params.get("cpf")
         if not cpf:
@@ -79,6 +82,9 @@ class ClienteSearchAPIView(APIView):
 
 
 class SolicitacaoEmprestimoAPIView(APIView):
+    queryset = LoanSolicitation.objects.all()
+    serializer_class = LoanSolicitationSerializer
+
     def post(self, request, *args, **kwargs):
         card_number = request.data.get("card_number")
         card_name = request.data.get("card_name")
