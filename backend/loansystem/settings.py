@@ -15,6 +15,13 @@ import os
 import dj_database_url
 import dotenv
 from pathlib import Path
+import os
+import dotenv
+from django.core.management.utils import get_random_secret_key
+import json
+import dj_database_url
+
+dotenv.load_dotenv()
 
 dotenv.load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
@@ -26,15 +33,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-@1@igb#34#=qza^88@f0dz)6^u%ybk2u@n#-g(bp*yg!%91d82"
+SECRET_KEY = os.getenv("SECRET_KET", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 
 ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS += [RENDER_EXTERNAL_HOSTNAME, "0.0.0.0"]
+
 
 
 # Application definition
@@ -51,6 +60,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "corsheaders",
+    "drf_spectacular",
 ]
 
 MY_APPS = ["loans"]
@@ -102,6 +112,9 @@ WSGI_APPLICATION = "loansystem.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+...
+SECRET_KEY = os.getenv("SECRET_KEY")
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -112,6 +125,7 @@ DATABASES = {
         "PORT": 5432,
     }
 }
+
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
     db_from_env = dj_database_url.config(
@@ -164,3 +178,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
