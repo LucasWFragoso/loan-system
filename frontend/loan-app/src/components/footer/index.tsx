@@ -1,5 +1,6 @@
 import { TInstallment } from '@/schemas/installmentSchema';
 import React from 'react';
+import Link from 'next/link';
 
 interface FooterProps {
     installment: TInstallment;
@@ -15,7 +16,7 @@ const Footer: React.FC<FooterProps> = ({ installment }) => {
                 <p>Installment Interest: {installment.installments}</p>
                 <p>Installment Value: R$ {installment.installment_value.toFixed(2)}</p>
             </div>
-            <a href="/" className="bg-secondary-1 font-flexo font-bold rounded-md text-font-2 p-2">Avançar</a>
+            <Link href="/selectClientPage" className="bg-secondary-1 font-flexo font-bold rounded-md text-font-2 p-2">Avançar</Link>
         </div>
     );
 };

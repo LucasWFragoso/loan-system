@@ -1,7 +1,11 @@
 import React from 'react';
 
+interface textProps {
+    textUp: String;
+    textDown: String;
+}
 
-const SimulacaotaxasIcon = () => {
+const TitleIcon: React.FC<textProps> = ({textUp, textDown}) => {
     return (
         <>
         <div className='flex mt-20 gap-2.5 items-center'>
@@ -10,12 +14,12 @@ const SimulacaotaxasIcon = () => {
             </div>
             <img src="_ionicons_svg_md-filing-1.svg" className='w-16' alt="" />
             <div>
-            <p className='font-flexo font-bold text-primary-1 text-heading2'>Simulação</p>
-            <p className='font-flexo font-bold text-primary-1 text-heading2'>de Taxas</p>
+            <p className='font-flexo font-bold text-primary-1 text-heading2'>{textUp}</p>
+            <p className='font-flexo font-bold text-primary-1 text-heading2'>{textDown}</p>
             </div>
         </div>
         </>
     );
 };
 
-export default SimulacaotaxasIcon;
+export default TitleIcon;
