@@ -7,7 +7,6 @@ import { useLoan } from '@/contexts/loanContext';
 import { DataCardForm } from '@/components/forms/dataCardForm';
 
 const DataCardPage: NextPage = () => {
-    const { client } = useLoan();
 
     return (
         <>

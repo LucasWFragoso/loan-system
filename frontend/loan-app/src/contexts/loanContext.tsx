@@ -59,7 +59,7 @@ export const ContextProvider = ({ children }: IContextProviderProps) => {
     const postLoan = async (data: TDataCardRequest) => {
         try {
             const response = await api.post("solicitacao-emprestimo/", data)
-            console.log(response.data)
+            setLoan(response.data)
         } catch (error) {
             console.log(error)
             toast.error('Erro ao solicitar emprestimo')

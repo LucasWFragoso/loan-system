@@ -29,7 +29,7 @@ export const DataCardForm = () => {
             };
             console.log(newData);
             setDataLoanRequest(newData);
-            router.push('/modalityChoice');
+            router.push('/verifyLoanPage');
         } catch (error) {
             console.error(error);
             toast.error('Erro ao inserir dados do cartão');

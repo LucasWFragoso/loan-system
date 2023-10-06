@@ -22,7 +22,7 @@ module.exports = {
         3: '#FFE5E5',
       },
       success: {
-        1: '#18794E',
+        1: '#31AC2B',
         2: '#CCEBD7',
         3: '#DDF3E4',
       },

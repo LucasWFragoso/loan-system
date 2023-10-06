@@ -4,11 +4,10 @@ import Header from '@/components/header';
 import TitleIcon from '@/components/titleIcon';
 import Table from '@/components/table';
 import { useLoan } from '@/contexts/loanContext';
-
-
+import { useEffect } from 'react';
 
 export default function Home() {
-  const { installments, installment } = useLoan()
+  const { installments, installment, setInstallments } = useLoan();
 
   return (
     <>
@@ -25,5 +24,5 @@ export default function Home() {
       </div>
       {installment && <Footer installment={installment}/>}
     </>
-  )
+  );
 }

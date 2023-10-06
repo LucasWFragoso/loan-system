@@ -3,12 +3,11 @@ import Header from '@/components/header';
 import { NextPage } from 'next';
 import TitleIcon from '@/components/titleIcon';
 import { useLoan } from '@/contexts/loanContext';
-import { DataCardForm } from '@/components/forms/dataCardForm';
 import Link from 'next/link';
 
 const ModalityChoicePage: NextPage = () => {
     const { client } = useLoan();
-
+    
     return (
         <>
             <Header/>
