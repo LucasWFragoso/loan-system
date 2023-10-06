@@ -2,6 +2,19 @@ from rest_framework import serializers
 from .models import Installment, Client, TableTax, LoanSolicitation
 
 
+class TableTaxSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    numberInstallments = serializers.IntegerField()
+    interestRates = serializers.FloatField()
+
+    class Meta:
+        model = TableTax
+        fields = ["id", "numberInstallments", "interestRates"]
+
+    def create(self, validated_data):
+        return TableTax.objects.create(**validated_data)
+
+
 class InstallmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     installments = serializers.IntegerField()
