@@ -1,13 +1,15 @@
 import { TDataCard, dataCardSchema } from '@/schemas/dataCardSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import { Field } from '../input';
 import { useLoan } from '../../contexts/loanContext';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 
 export const DataCardForm = () => {
     const { setDataLoanRequest, client, installment } = useLoan();
+    const router = useRouter();
 
     const {
         handleSubmit,
@@ -27,6 +29,7 @@ export const DataCardForm = () => {
             };
             console.log(newData);
             setDataLoanRequest(newData);
+            router.push('/modalityChoice');
         } catch (error) {
             console.error(error);
             toast.error('Erro ao inserir dados do cartão');

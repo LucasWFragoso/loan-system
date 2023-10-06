@@ -24,7 +24,7 @@ const SearchClientPage: NextPage = () => {
                     <p className='font-flexo text-font-1 text-heading5'>Cliente encontrado:</p>
                     <p className='font-flexo text-secondary-1 text-heading6'>{client.cpf}</p>
                     <p className='font-flexo font-bold text-primary-1 text-heading5'>{client.name}</p>
-                    <Link href='/dataCardPage' className='bg-primary-1 text-font-2 font-flexo font-bold text-heading5 p-4 px-24'>
+                    <Link href='/modalityChoice' className='bg-primary-1 text-font-2 font-flexo font-bold text-heading5 p-4 px-24'>
                         Solicitar
                     </Link>
                 </div>
