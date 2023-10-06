@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react"
 import { api } from "@/services"
 import { TValueDataRequest } from "@/schemas/valueSchema"
-import { TInstallmentResponse } from "@/schemas/installmentSchema"
+import { TInstallment, TInstallmentResponse } from "@/schemas/installmentSchema"
 import { toast } from 'react-toastify';
 
 
@@ -13,12 +13,15 @@ interface IContextProps {
     postInstallments: (value: TValueDataRequest) => Promise<void>
     installments: TInstallmentResponse | undefined
     setInstallments: React.Dispatch<React.SetStateAction<TInstallmentResponse | undefined>>
+    installment: TInstallment | undefined
+    setInstallment: React.Dispatch<React.SetStateAction<TInstallment | undefined>>
 }
 
 export const ContextLoan = createContext<IContextProps>({} as IContextProps)
 
 export const ContextProvider = ({ children }: IContextProviderProps) => {
     const [installments, setInstallments] = useState<TInstallmentResponse>()
+    const [installment, setInstallment] = useState<TInstallment>()
 
     const postInstallments = async (value: TValueDataRequest) => {
         try {
@@ -35,6 +38,8 @@ export const ContextProvider = ({ children }: IContextProviderProps) => {
             postInstallments,
             installments,
             setInstallments,
+            installment,
+            setInstallment
         }}>
             {children}
         </ContextLoan.Provider>

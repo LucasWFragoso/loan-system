@@ -1,3 +1,4 @@
+import { useLoan } from '@/contexts/loanContext';
 import { TInstallment } from '@/schemas/installmentSchema';
 import React from 'react';
 
@@ -5,9 +6,20 @@ interface TableProps {
     data: TInstallment[];
 }
 
+import { useState } from 'react';
+import Footer from '../footer';
+
 const Table: React.FC<TableProps> = ({ data }) => {
-    
+    const { setInstallment, installment } = useLoan();
+    const [activeRow, setActiveRow] = useState<number | null>(null);
+
+    const handleRowClick = (index: number) => {
+        setActiveRow(index);
+        setInstallment(data[index]);
+    };
+
     return (
+       <>
         <table className="min-w-full bg-white border border-background-1 mt-8 text-center">
             <thead>
                 <tr className="bg-background-1">
@@ -19,8 +31,14 @@ const Table: React.FC<TableProps> = ({ data }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((item: TInstallment) => (
-                    <tr key={item.id} className="hover:bg-gray-100">
+                {data.map((item: TInstallment, index: number) => (
+                    <tr
+                        key={item.id}
+                        className={`cursor-pointer ${
+                            activeRow === index ? 'bg-background-2' : ''
+                        }`}
+                        onClick={() => handleRowClick(index)}
+                    >
                         <td className="border-background-1 p-2 font-flexo text-font-1">{item.installments}</td>
                         <td className="border-background-1 p-2 font-flexo text-font-1">{item.installment_interest}%</td>
                         <td className="border-background-1 p-2 font-flexo text-font-1">R$ {item.installment_value.toFixed(2)}</td>
@@ -30,6 +48,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
                 ))}
             </tbody>
         </table>
+       </>
     );
 };
 
