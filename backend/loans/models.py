@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Cliente(models.Model):
+class Client(models.Model):
     name = models.CharField(max_length=255)
     phone = models.CharField(max_length=15)
     cpf = models.CharField(max_length=11)
@@ -16,18 +16,18 @@ class Installment(models.Model):
     installment_value = models.FloatField()
     full_value = models.FloatField()
     comission = models.FloatField()
-    tabelaTaxas = models.ForeignKey("TabelaTaxas", on_delete=models.CASCADE, default=1)
+    tableTax = models.ForeignKey("TableTax", on_delete=models.CASCADE, default=1)
 
 
-class TabelaTaxas(models.Model):
+class TableTax(models.Model):
     numberInstallments = models.PositiveIntegerField(default=1)
     interestRates = models.FloatField(default=0)
 
 
-class SolicitacaoEmprestimo(models.Model):
+class LoanSolicitation(models.Model):
     card_number = models.CharField(max_length=16, default="")
     card_name = models.CharField(max_length=255, default="")
     valid_date = models.CharField(max_length=5, default="00/00")
     card_cvc = models.CharField(max_length=3, default="")
-    client = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     installment = models.ForeignKey(Installment, on_delete=models.CASCADE)

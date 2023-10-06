@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Installment, Cliente, TabelaTaxas, SolicitacaoEmprestimo
+from .models import Installment, Client, TableTax, LoanSolicitation
 
 
 class InstallmentSerializer(serializers.ModelSerializer):
@@ -9,7 +9,7 @@ class InstallmentSerializer(serializers.ModelSerializer):
     installment_value = serializers.FloatField()
     full_value = serializers.FloatField()
     comission = serializers.FloatField()
-    tabelaTaxas = serializers.PrimaryKeyRelatedField(queryset=TabelaTaxas.objects.all())
+    tableTax = serializers.PrimaryKeyRelatedField(queryset=TableTax.objects.all())
 
     class Meta:
         model = Installment
@@ -20,7 +20,7 @@ class InstallmentSerializer(serializers.ModelSerializer):
             "installment_value",
             "full_value",
             "comission",
-            "tabelaTaxas",
+            "tableTax",
         ]
 
     def create(self, validated_data):
@@ -37,10 +37,10 @@ class ClienteSerializer(serializers.Serializer):
     account_number = serializers.CharField(max_length=20)
 
     def create(self, validated_data):
-        return Cliente.objects.create(**validated_data)
+        return Client.objects.create(**validated_data)
 
 
-class SolicitacaoEmprestimoSerializer(serializers.Serializer):
+class LoanSolicitationSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     card_number = serializers.CharField(max_length=16, default="")
     card_name = serializers.CharField(max_length=255, default="")
@@ -50,4 +50,4 @@ class SolicitacaoEmprestimoSerializer(serializers.Serializer):
     installment = InstallmentSerializer()
 
     def create(self, validated_data):
-        return SolicitacaoEmprestimo.objects.create(**validated_data)
+        return LoanSolicitation.objects.create(**validated_data)

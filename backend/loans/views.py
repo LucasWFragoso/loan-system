@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework.views import APIView, Response
 from rest_framework import generics
-from .models import Cliente, TabelaTaxas, SolicitacaoEmprestimo, Installment
+from .models import Client, TableTax, LoanSolicitation, Installment
 from .serializers import (
     InstallmentSerializer,
     ClienteSerializer,
-    SolicitacaoEmprestimoSerializer,
+    LoanSolicitationSerializer,
 )
 
 
@@ -23,7 +23,7 @@ class InstallmentAPIView(APIView):
                 {"error": "Value must be between 300 and 10,000"}, status=400
             )
 
-        tabela_taxas = TabelaTaxas.objects.all()
+        tabela_taxas = TableTax.objects.all()
         if not tabela_taxas:
             return Response({"error": "No tabela taxas found"}, status=500)
 
@@ -44,7 +44,7 @@ class InstallmentAPIView(APIView):
                 "installment_value": installment_value,
                 "full_value": full_value,
                 "comission": comission,
-                "tabelaTaxas": taxa.id,
+                "tableTax": taxa.id,
             }
 
             installments_data.append(installment_data)
@@ -59,7 +59,7 @@ class InstallmentAPIView(APIView):
 
 
 class ClienteAPIView(generics.ListCreateAPIView):
-    queryset = Cliente.objects.all()
+    queryset = Client.objects.all()
     serializer_class = ClienteSerializer
 
 
@@ -70,9 +70,9 @@ class ClienteSearchAPIView(APIView):
             return Response({"error": "CPF is required"}, status=400)
 
         try:
-            cliente = Cliente.objects.get(cpf=cpf)
-        except Cliente.DoesNotExist:
-            return Response({"error": "Cliente not found"}, status=404)
+            cliente = Client.objects.get(cpf=cpf)
+        except Client.DoesNotExist:
+            return Response({"error": "Client not found"}, status=404)
 
         serializer = ClienteSerializer(cliente)
         return Response(serializer.data, status=200)
@@ -106,17 +106,17 @@ class SolicitacaoEmprestimoAPIView(APIView):
             return Response({"error": "Installment ID is required"}, status=400)
 
         try:
-            cliente = Cliente.objects.get(id=client_id)
+            cliente = Client.objects.get(id=client_id)
             print(cliente)
-        except Cliente.DoesNotExist:
-            return Response({"error": "Cliente not found"}, status=404)
+        except Client.DoesNotExist:
+            return Response({"error": "Client not found"}, status=404)
 
         try:
             installment = Installment.objects.get(id=installment_id)
         except Installment.DoesNotExist:
             return Response({"error": "Installment not found"}, status=404)
 
-        solicitacao_emprestimo = SolicitacaoEmprestimo.objects.create(
+        solicitacao_emprestimo = LoanSolicitation.objects.create(
             card_number=card_number,
             card_name=card_name,
             valid_date=valid_date,
@@ -125,5 +125,5 @@ class SolicitacaoEmprestimoAPIView(APIView):
             installment=installment,
         )
 
-        serializer = SolicitacaoEmprestimoSerializer(solicitacao_emprestimo)
+        serializer = LoanSolicitationSerializer(solicitacao_emprestimo)
         return Response(serializer.data, status=200)

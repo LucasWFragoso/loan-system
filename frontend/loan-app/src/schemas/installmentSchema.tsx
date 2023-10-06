@@ -8,7 +8,7 @@ export const installmentResponseSchema = z.array(
         installment_value: z.number(),
         full_value: z.number(),
         comission: z.number(),
-        tabelaTaxas: z.number(),
+        tableTax: z.number(),
     })
 );
 
@@ -19,7 +19,7 @@ export const installmentSchema = z.object({
         installment_value: z.number(),
         full_value: z.number(),
         comission: z.number(),
-        tabelaTaxas: z.number(),
+        tableTax: z.number(),
 })
 
 export type TInstallmentResponse = z.infer<typeof installmentResponseSchema>;
