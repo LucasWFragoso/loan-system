@@ -6,7 +6,13 @@ from .serializers import (
     InstallmentSerializer,
     ClienteSerializer,
     LoanSolicitationSerializer,
+    TableTaxSerializer,
 )
+
+
+class TableTaxAPIView(generics.ListCreateAPIView):
+    queryset = TableTax.objects.all()
+    serializer_class = TableTaxSerializer
 
 
 class InstallmentAPIView(APIView):

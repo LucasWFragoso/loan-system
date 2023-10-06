@@ -4,6 +4,7 @@ from .views import (
     ClienteAPIView,
     ClienteSearchAPIView,
     SolicitacaoEmprestimoAPIView,
+    TableTaxAPIView,
 )
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path("cliente-generic/", ClienteAPIView.as_view()),
     path("cliente/", ClienteSearchAPIView.as_view()),
     path("solicitacao-emprestimo/", SolicitacaoEmprestimoAPIView.as_view()),
+    path("table-tax/", TableTaxAPIView.as_view()),
 ]
