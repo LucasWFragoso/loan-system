@@ -5,11 +5,15 @@ import TitleIcon from '@/components/titleIcon';
 import { SearchClientForm } from '@/components/forms/searchClientForm';
 import { useLoan } from '@/contexts/loanContext';
 import { DataCardForm } from '@/components/forms/dataCardForm';
+import RefreshError from '@/components/refreshError/refreshError';
 
 const DataCardPage: NextPage = () => {
+    const { client, installment } = useLoan();	
 
-    return (
+    return (    
         <>
+            {client || installment ? (
+            <>
             <Header/>
             <div className='container mx-auto p-8 px-48'>
                 <TitleIcon textUp={'Solicitar'} textDown={'Emprestimo'}/>
@@ -20,6 +24,11 @@ const DataCardPage: NextPage = () => {
                     </div>
                 </div>
             </div>
+            </>
+            ) : (
+                <RefreshError/>
+            )
+        }
         </>
     );
 };

@@ -1,5 +1,6 @@
 import Header from "@/components/header";
 import Info from "@/components/info";
+import RefreshError from "@/components/refreshError/refreshError";
 import TitleIcon from "@/components/titleIcon";
 import { useLoan } from "@/contexts/loanContext";
 
@@ -9,7 +10,9 @@ const LoanReceipt = () => {
     
     return (
         <div>
-            <Header/>
+            {loan ? (
+                <>
+                <Header/>
             <div className='container mx-auto p-8 px-48'>
                 <TitleIcon textUp={'Solicitação'} textDown={'do Emprestimo'}/>
                 <div className="flex mt-8 w-full justify-around ">
@@ -51,6 +54,10 @@ const LoanReceipt = () => {
                     </div>
                 </div>
             </div>
+                </>
+            ) : (
+                <RefreshError/>
+            )}
         </div>
     );
 };

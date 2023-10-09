@@ -1,6 +1,6 @@
 import { TDataCard, dataCardSchema } from '@/schemas/dataCardSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, useFormState } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Field } from '../input';
 import { useLoan } from '../../contexts/loanContext';
 import { toast } from 'react-toastify';
@@ -27,7 +27,6 @@ export const DataCardForm = () => {
                 client_id: client!.id!,
                 installment_id: installment!.id!,
             };
-            console.log(newData);
             setDataLoanRequest(newData);
             router.push('/verifyLoanPage');
         } catch (error) {
