@@ -40,9 +40,9 @@ export const ContextProvider = ({ children }: IContextProviderProps) => {
         try {
             const response = await api.post("installment/", value)
             setInstallments(response.data)
-        } catch (error) {
+        } catch (error: any) {
             console.log(error)
-            toast.error('Erro ao calcular parcelas')
+            toast.error(error.response.data.error)
         }
     }
 
@@ -50,9 +50,9 @@ export const ContextProvider = ({ children }: IContextProviderProps) => {
         try {
             const response = await api.get(`cliente/?cpf=${cpf}`)
             setClient(response.data)
-        } catch (error) {
+        } catch (error: any) {
             console.log(error)
-            toast.error('Erro ao buscar cliente')
+            toast.error(error.response.data.error)
         }
     }
 
@@ -60,9 +60,9 @@ export const ContextProvider = ({ children }: IContextProviderProps) => {
         try {
             const response = await api.post("solicitacao-emprestimo/", data)
             setLoan(response.data)
-        } catch (error) {
+        } catch (error: any) {
             console.log(error)
-            toast.error('Erro ao solicitar emprestimo')
+            toast.error(error.response.data.error)
         }
     }
     

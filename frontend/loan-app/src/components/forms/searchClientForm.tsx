@@ -17,9 +17,9 @@ export const SearchClientForm = () => {
         reValidateMode: 'onBlur',
     });
 
+
     const onSubmit = async (data: TClient) => {
         try {
-            console.log(data);
             await getClient(data.cpf);
         } catch (error) {
             console.error(error);

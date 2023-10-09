@@ -24,10 +24,10 @@ export const dataCardResponseSchema = z.object({
 
 
 export const dataCardSchema = z.object({
-    card_number: z.string().max(16),
-    card_name: z.string().max(50),
-    valid_date: z.string().max(5),
-    card_cvc: z.string().max(3),
+    card_number: z.string().max(16).min(16),
+    card_name: z.string().max(50).min(3),
+    valid_date: z.string().max(5).min(5),
+    card_cvc: z.string().max(3).min(3),
 });
 
 export type TDataCard = z.infer<typeof dataCardSchema>;
