@@ -15,13 +15,6 @@ import os
 import dj_database_url
 import dotenv
 from pathlib import Path
-import os
-import dotenv
-from django.core.management.utils import get_random_secret_key
-import json
-import dj_database_url
-
-dotenv.load_dotenv()
 
 dotenv.load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
@@ -32,9 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KET", get_random_secret_key())
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -43,7 +33,6 @@ ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS += [RENDER_EXTERNAL_HOSTNAME, "0.0.0.0"]
-
 
 
 # Application definition
@@ -86,8 +75,8 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:8000",
+    "https://*",
 ]
-
 ROOT_URLCONF = "loansystem.urls"
 
 TEMPLATES = [
