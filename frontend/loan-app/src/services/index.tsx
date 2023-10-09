@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "https://loan-system-api.onrender.com/api/",
-    timeout: 10000
+  baseURL: process.env.api_base_url,
+  timeout: Number(process.env.timeout),
 });
